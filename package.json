@@ -1,0 +1,19 @@
+{
+  "name": "tic_tac_toe",
+  "version": "1.0.0",
+  "description": "two-player Tic-Tac-Toe game running with firebase",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlombardi/Tic-Tac-Toe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dlombardi/Tic-Tac-Toe/issues"
+  },
+  "homepage": "https://github.com/dlombardi/Tic-Tac-Toe#readme"
+}

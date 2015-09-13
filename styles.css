@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+h1{
+  margin-bottom: 50px;
+}
+
 table{
   height: 500px;
   width: 500px;
@@ -9,16 +13,30 @@ table{
 
 }
 
-td {
-  border: 10px solid white;
-  background-color: black;
+.U, .C{
+  border-bottom: 5px solid black;
+  border-bottom: 5px solid black;
+}
+
+.R{
+  border-left: 5px solid black;
+  border-right: 5px solid white;
+}
+
+.M{
+  border-left: 5px solid black;
+}
+
+.L{
+  border-left: 5px solid white;
 }
 
 .ex{
-  background-color: red;
-  
+  background-image: url(http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/simple-red-glossy-icons-alphanumeric/074498-simple-red-glossy-icon-alphanumeric-x-solid.png);
+  background-size: 100% 100%;
 }
 
 .oh{
-  background-color: blue;
+  background-image: url(http://www.ribbustingjokes.com/lilsusieq/scrapbook/frames/circle/frame_circle_A_1.png);
+  background-size: 100% 100%;
 }

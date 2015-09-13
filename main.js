@@ -4,9 +4,10 @@ $(document).ready(init);
 
 function init() {
   gameReset();
-  $("td").on('click', addClass)
+  $("td").on('click', gameMove)
 }
 
+var turn = false;
 var turns = [];
 var player1Array = [];
 var player1 = {
@@ -15,7 +16,9 @@ var player1 = {
   b: 0,
   l: 0,
   m: 0,
-  r: 0
+  r: 0,
+  dl: 0,
+  dr: 0
 };
 var player2Array=[];
 var player2 = {
@@ -24,7 +27,9 @@ var player2 = {
   b: 0,
   l: 0,
   m: 0,
-  r: 0
+  r: 0,
+  dl: 0,
+  dr: 0
 };
 
 function gameReset(){
@@ -32,7 +37,7 @@ function gameReset(){
   $("td").removeClass('.oh');
 }
 
-function addClass(){
+function gameMove(){
   if(turns.length % 2 === 0){
     if($(this).hasClass('ex') || $(this).hasClass('oh')){
       return;
@@ -40,8 +45,8 @@ function addClass(){
       $(this).addClass('ex');
       turns.push("ex");
       var gamePiece = $(this).attr('class');
-      gamePieceParse("player1", gamePiece);
-      checkWin("player1");
+      gamePieceParse(player1, gamePiece);
+      checkWin(player1, "player 1", player1Array);
     }
   } else {
     if($(this).hasClass('ex') || $(this).hasClass('oh')){
@@ -51,90 +56,67 @@ function addClass(){
       $(this).addClass('oh');
       turns.push("oh");
       var gamePiece = $(this).attr('class');
-      gamePieceParse("player2", gamePiece);
-      checkWin("player2");
+      gamePieceParse(player2, gamePiece);
+      checkWin(player2, "player 2", player2Array);
     }
   }
 }
 
 function gamePieceParse(player, string){
+  console.log(string);
   var array = string.split(" ");
-  if(player === "player1"){
-    array.forEach((e) => {
-      switch(e){
-        case "U":
-          player1.u++;
-          break;
-        case "C":
-          player1.c++;
-          break;
-        case "B":
-          player1.b++;
-          break;
-        case "L":
-          player1.l++;
-          break;
-        case "M":
-          player1.m++;
-          break;
-        case "R":
-          player1.r++;
-          break;
-        }
-    });
-  } else {
-    array.forEach((e) => {
-      switch(e){
-        case "U":
-          player2.u++;
-          break;
-        case "C":
-          player2.c++;
-          break;
-        case "B":
-          player2.b++;
-          break;
-        case "L":
-          player2.l++;
-          break;
-        case "M":
-          player2.m++;
-          break;
-        case "R":
-          player2.r++;
-          break;
-        }
-    });
-  }
-  console.log(player1);
+  array.forEach((e) => {
+    switch(e){
+      case "U":
+        player.u++;
+        break;
+      case "C":
+        player.c++;
+        break;
+      case "B":
+        player.b++;
+        break;
+      case "L":
+        player.l++;
+        break;
+      case "M":
+        player.m++;
+        break;
+      case "R":
+        player.r++;
+        break;
+      case "Dur":
+        player.dr++;
+        break;
+      case "Dbl":
+        player.dr++;
+        break;
+      case "Dul":
+        player.dl++;
+        break;
+      case "Dbr":
+        player.dl++;
+        break;
+      case "Dm":
+        player.dr++;
+        player.dl++;
+        break;
+    }
+  });
 };
 
-function checkWin(player){
-  if(player === "player1"){
-    for(var prop in player1){
-      if(player1[prop] === 1){
-        player1Array.push(player1[prop]);
-      }
-      console.log(player1Array);
-      if(player1[prop] === 3){
-        alert("player 1 wins");
-      }
+function checkWin(player, playerString, playerArray){
+
+  console.log(playerString);
+  for(var prop in player){
+    if(player[prop] === 1 && playerString === "player 1"){
+      player1Array.push(player[prop]);
+    } else if(player[prop] === 1 && playerString === "player 2") {
+      player2Array.push(player[prop]);
     }
-    if(player1Array.length > 10){
-      alert("player 1 wins");
-    }
-  } else {
-    for(var prop in player2){
-      if(player2[prop] === 1){
-        player2Array.push(player2[prop]);
-      }
-      console.log(player2Array);
-      if(player2[prop] === 3){
-        alert("player 1 wins");
-      }
-    }
-    if(player2Array.length > 10){
-      alert("player 2 wins");
+    if(player[prop] === 3){
+      alert(playerString +  " wins");
     }
   }
+  console.log(player);
 }
