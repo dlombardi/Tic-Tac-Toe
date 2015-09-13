@@ -1,2 +1,2 @@
 # Tic-Tac-Toe
-Tic-
+two-player Tic-Tac-Toe game running with firebase
