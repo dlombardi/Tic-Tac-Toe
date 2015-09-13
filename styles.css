@@ -1,0 +1,24 @@
+.container{
+  text-align: center;
+}
+
+table{
+  height: 500px;
+  width: 500px;
+  margin: 0 auto;
+
+}
+
+td {
+  border: 10px solid white;
+  background-color: black;
+}
+
+.ex{
+  background-color: red;
+  
+}
+
+.oh{
+  background-color: blue;
+}
