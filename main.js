@@ -2,8 +2,14 @@
 
 $(document).ready(init);
 
+var ref = new Firebase('https://tic-tac-toed.firebaseio.com');
+var player1Data = ref.child('player1');
+var player2Data = ref.child('player2');
+
 function init() {
   gameReset();
+  player1Data.set(player1);
+  player2Data.set(player2);
   $("td").on('click', gameMove)
 }
 
@@ -11,28 +17,29 @@ var turn = false;
 var turns = [];
 var player1Array = [];
 var player1 = {
-  u: 0,
-  c: 0,
-  b: 0,
-  l: 0,
-  m: 0,
-  r: 0,
+  u:  0,
+  c:  0,
+  b:  0,
+  l:  0,
+  m:  0,
+  r:  0,
   dl: 0,
   dr: 0
 };
 var player2Array=[];
 var player2 = {
-  u: 0,
-  c: 0,
-  b: 0,
-  l: 0,
-  m: 0,
-  r: 0,
+  u:  0,
+  c:  0,
+  b:  0,
+  l:  0,
+  m:  0,
+  r:  0,
   dl: 0,
   dr: 0
 };
 
 function gameReset(){
+  ref.remove();
   $("td").removeClass('.ex');
   $("td").removeClass('.oh');
 }
@@ -46,7 +53,11 @@ function gameMove(){
       turns.push("ex");
       var gamePiece = $(this).attr('class');
       gamePieceParse(player1, gamePiece);
-      checkWin(player1, "player 1", player1Array);
+      player1Data.update(player1);
+      player1Data.on('value', function(snapshot){
+        var data = snapshot.val();
+        checkWin(data, "player 1");
+      });
     }
   } else {
     if($(this).hasClass('ex') || $(this).hasClass('oh')){
@@ -57,13 +68,17 @@ function gameMove(){
       turns.push("oh");
       var gamePiece = $(this).attr('class');
       gamePieceParse(player2, gamePiece);
-      checkWin(player2, "player 2", player2Array);
+      player2Data.update(player2);
+      player2Data.on('value', function(snapshot){
+        var data = snapshot.val();
+        checkWin(data, "player 2");
+      });
     }
   }
 }
 
+
 function gamePieceParse(player, string){
-  console.log(string);
   var array = string.split(" ");
   array.forEach((e) => {
     switch(e){
@@ -105,18 +120,10 @@ function gamePieceParse(player, string){
   });
 };
 
-function checkWin(player, playerString, playerArray){
-
-  console.log(playerString);
-  for(var prop in player){
-    if(player[prop] === 1 && playerString === "player 1"){
-      player1Array.push(player[prop]);
-    } else if(player[prop] === 1 && playerString === "player 2") {
-      player2Array.push(player[prop]);
-    }
-    if(player[prop] === 3){
+function checkWin(data, playerString){
+  for(var prop in data){
+    if(data[prop] === 3){
       alert(playerString +  " wins");
     }
   }
-  console.log(player);
 }
